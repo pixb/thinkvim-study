@@ -27,7 +27,7 @@ execute 'source' fnamemodify(expand('<sfile>'), ':h').'/core/vimrc'
 
 ## 2、`core/vimrc`
 
-```ruby
+```bash
 if &compatible
 	" vint: -ProhibitSetNoCompatible
 	set nocompatible
@@ -160,7 +160,17 @@ set secure
 
 ```
 
+- 不与`vi`兼容
 
+  ```bash
+  if &compatible
+  	" vint: -ProhibitSetNoCompatible
+  	set nocompatible
+  	" vint: +ProhibitSetNoCompatible
+  endif
+  ```
+
+- 
 
 
 
@@ -175,4 +185,4 @@ set secure
 - <https://v2ex.com/t/458103> 
 - <http://www.treelib.com/book-detail-id-47-aid-2868.html> 
 - <https://www.v2ex.com/t/537934> 
-- 
+- <http://www.ruanyifeng.com/blog/2018/09/vimrc.html> 
