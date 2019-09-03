@@ -170,7 +170,28 @@ set secure
   endif
   ```
 
-- 
+- 设置配置文件目录
+
+  ```shell
+  " Set main configuration directory as parent directory
+  let $VIM_PATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
+  let s:user_settings_path = expand('~/.thinkvim.d/local_settings.vim')
+  ```
+
+- 设置runtime路径
+
+  参考：<http://blog.chinaunix.net/uid-22695386-id-2378701.html> 
+
+  参考：[runtime](./note/runtimepath.md)
+
+  ```shell
+  " Regular Vim doesn't add custom configuration directories, if you use one
+  if &runtimepath !~# $VIM_PATH
+  	set runtimepath^=$VIM_PATH
+  endif
+  ```
+
+  
 
 
 
