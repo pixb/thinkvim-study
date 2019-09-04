@@ -191,7 +191,110 @@ set secure
   endif
   ```
 
+- 未知
+
+  ```shell
+  let $DATA_PATH = g:etc#cache_path
+  ```
+
+  不知道这个用来做什么
+
+  关于`#`参考[自动加载](./note/autoload.md)
+
+- [创建自动命令组](./note/augroup.md)
+
+  清楚命令组MyAutoCmd
+
+  ```shell
+  " Set augroup
+  augroup MyAutoCmd
+  	autocmd!
+  augroup END
+  ```
+
+  对于这个问题，Vim有一个解决方案。这个解决方案的第一步是将相关的自动命令收集起来放到一个已命名的组（groups）中。
+
+  新开一个Vim实例，这样可以清除之前所创建的自动命令。
+
+- 禁用分发插件
+
+  ```shell
+  " Disable vim distribution plugins
+  let g:loaded_getscript = 1
+  let g:loaded_getscriptPlugin = 1
+  let g:loaded_gzip = 1
+  let g:loaded_logiPat = 1
+  let g:loaded_matchit = 1
+  let g:loaded_matchparen = 1
+  let g:netrw_nogx = 1 " disable netrw's gx mapping.
+  let g:loaded_rrhelper = 1
+  let g:loaded_shada_plugin = 1
+  let g:loaded_tar = 1
+  let g:loaded_tarPlugin = 1
+  let g:loaded_tutor_mode_plugin = 1
+  let g:loaded_2html_plugin = 1
+  let g:loaded_vimball = 1
+  let g:loaded_vimballPlugin = 1
+  let g:loaded_zip = 1
+  let g:loaded_zipPlugin = 1
+  ```
+
+  从注释上来下，是做这个的，以后回头再来看这些变量的作用
+
+- 开始时初始化设置
+
+  ```
+  " Initialize base requirements
+  if has('vim_starting')
+  	" Global Mappings "{{{
+  	" Use spacebar as leader and ; as secondary-leader
+  	" Required before loading plugins!
+  	let g:mapleader="\<Space>"
+  	let g:maplocalleader=';'
   
+  	" Release keymappings prefixes, evict entirely for use of plug-ins.
+  	nnoremap <Space>  <Nop>
+  	xnoremap <Space>  <Nop>
+  	nnoremap ,        <Nop>
+  	xnoremap ,        <Nop>
+  	nnoremap ;        <Nop>
+  	xnoremap ;        <Nop>
+  	nnoremap m        <Nop>
+  	xnoremap m        <Nop>
+     if ! has('nvim') && has('pythonx')
+  		if has('python3')
+  			set pyxversion=3
+  		elseif has('python')
+  			set pyxversion=2
+  		endif
+  	endif
+  
+  
+  	" Ensure data directories
+  	call etc#util#ensure_directory([
+  		\   g:etc#cache_path . '/undo',
+  		\   g:etc#cache_path . '/backup',
+  		\   g:etc#cache_path . '/session',
+  		\   g:etc#vim_path . '/spell'
+  		\ ])
+  
+  endif
+  ```
+
+  设置`leader`
+
+  参考：[Leader](./note/leaders.md)
+
+  ```
+  let g:mapleader="\<Space>"
+  let g:maplocalleader=';'
+  ```
+
+  
+
+
+
+
 
 
 
