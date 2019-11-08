@@ -45,7 +45,6 @@ endif
 
 let $DATA_PATH = g:etc#cache_path
 
-
 " Set augroup
 augroup MyAutoCmd
 	autocmd!
@@ -191,7 +190,7 @@ set secure
   endif
   ```
 
-- 未知
+- 设置数据目录
 
   ```shell
   let $DATA_PATH = g:etc#cache_path
@@ -243,7 +242,7 @@ set secure
 
 - 开始时初始化设置
 
-  ```
+  ```css
   " Initialize base requirements
   if has('vim_starting')
   	" Global Mappings "{{{
@@ -285,7 +284,7 @@ set secure
 
   参考：[Leader](./note/leaders.md)
 
-  ```
+  ```css
   let g:mapleader="\<Space>"
   let g:maplocalleader=';'
   ```
@@ -301,6 +300,66 @@ set secure
 
 
 
+
+# 未知的设置
+
+## 1、get()
+
+```css
+let g:etc#vim_path =
+	\ get(g:, 'etc#vimpath',
+	\   exists('*stdpath') ? stdpath('config') :
+	\   ! empty($MYVIMRC) ? fnamemodify(expand($MYVIMRC), ':h') :
+	\   ! empty($VIMCONFIG) ? expand($VIMCONFIG) :
+	\   ! empty($VIMCONFIG) ? expand($VIMCONFIG) :
+	\   ! empty($VIM_PATH) ? expand($VIM_PATH) :
+	\   expand('$HOME/.vim')
+	\ )
+```
+
+# 一些问题
+
+## 1、BufOnly映射
+
+mapping.vim
+
+```css
+"buffer
+nnoremap <leader>bc :BufOnly<CR>
+nnoremap <Leader>bo :BufOnly 
+```
+
+这个映射是如何生效的？
+
+## 2、EditPluginSetting
+
+mapping.vim
+
+```css
+" a command which  edit PLugin config easy
+nnoremap <leader>p :EditPluginSetting <Space>
+```
+
+这个映射如何使用？
+
+## 3、buffer select mapping
+
+mapping.vim
+
+```css
+nmap <leader>1 <Plug>BuffetSwitch(1)
+nmap <leader>2 <Plug>BuffetSwitch(2)
+nmap <leader>3 <Plug>BuffetSwitch(3)
+nmap <leader>4 <Plug>BuffetSwitch(4)
+nmap <leader>5 <Plug>BuffetSwitch(5)
+nmap <leader>6 <Plug>BuffetSwitch(6)
+nmap <leader>7 <Plug>BuffetSwitch(7)
+nmap <leader>8 <Plug>BuffetSwitch(8)
+nmap <leader>9 <Plug>BuffetSwitch(9)
+nmap <leader>0 <Plug>BuffetSwitch(10)
+```
+
+这个映射如何生效？
 
 
 
