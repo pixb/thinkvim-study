@@ -1,5 +1,7 @@
 # thinkvim-study
 
+# 一、整体预览学习
+
 `ThinkVim`是一个很好的`Vim`配置文件项目，用来拆分`vim`的配置。
 
 原作者github项目:<https://github.com/hardcoreplayers/ThinkVim> 
@@ -14,7 +16,8 @@
 
 `init.vim`
 
-```ruby
+```css
+" 执行加载当前目录下core/vimrc配置文件
 execute 'source' fnamemodify(expand('<sfile>'), ':h').'/core/vimrc'
 ```
 
@@ -24,6 +27,11 @@ execute 'source' fnamemodify(expand('<sfile>'), ':h').'/core/vimrc'
 - [expand](./note/expand.md):获取路径内置函数
 
 所以这里是加载`./core/vimrc`配置文件
+
+- `<sfile>`:表示当前载入的配置文件
+- `expand('<sfile>')`:扩展当前配置文件
+- `:h`:当前文件的路径，去掉文件名部分，相对路径
+- `fnamemodify(expand('<sfile>'),':h')`返回当前配置文件的相对路径
 
 ## 2、`core/vimrc`
 
@@ -290,7 +298,129 @@ set secure
   let g:maplocalleader=';'
   ```
 
-  
+
+
+
+
+
+# 二、主题学习
+
+这一章来总结整个架构每个知识点的学习。
+
+## 1、插件配置
+
+这里插件使用的是`dein`插件管理器来管理插件插件。
+
+这里分析是在`thinkvim`中是如何使用`dein`的
+
+- 初始脚本`init.vim`加载`core/vimrc`
+- `core/vimrc`调用`etc#init()`
+- `etc#init()`调用`etc#providers#dein#_init()`来完成`dein`脚本的初始化
+
+重点来看下这个文件`autoload/etc/providers/dein.vim`
+
+```css
+function! etc#providers#dein#_init(config_paths) abort
+	let l:cache_path = $DATA_PATH . '/dein'
+
+	if has('vim_starting')
+		" Use dein as a plugin manager
+		let g:dein#auto_recache = 1
+		let g:dein#install_max_processes = 16
+		let g:dein#install_progress_type = 'echo'
+		let g:dein#enable_notification = 1
+		let g:dein#install_log_filename = $DATA_PATH . '/dein.log'
+
+		" Add dein to vim's runtimepath
+		if &runtimepath !~# '/dein.vim'
+			let s:dein_dir = l:cache_path . '/repos/github.com/Shougo/dein.vim'
+			" Clone dein if first-time setup
+			if ! isdirectory(s:dein_dir)
+				execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
+				if v:shell_error
+					call s:error('dein installation has failed! is git installed?')
+					finish
+				endif
+			endif
+
+			execute 'set runtimepath+='.substitute(
+				\ fnamemodify(s:dein_dir, ':p') , '/$', '', '')
+		endif
+	endif
+
+	" Initialize dein.vim (package manager)
+	if dein#load_state(l:cache_path)
+		let l:rc = etc#_parse_config_files(a:config_paths)
+		if empty(l:rc)
+			call etc#util#error('Empty plugin list')
+			return
+		endif
+		" Start propagating file paths and plugin presets
+		call dein#begin(l:cache_path, extend([expand('<sfile>')], a:config_paths))
+		for plugin in l:rc
+			call dein#add(plugin['repo'], extend(plugin, {}, 'keep'))
+		endfor
+
+		" Add any local ./dev plugins
+		if isdirectory(g:etc#vim_path.'/dev')
+			call dein#local(g:etc#vim_path.'/dev', {'frozen': 1, 'merged': 0})
+		endif
+		call dein#end()
+		call dein#save_state()
+
+		" Update or install plugins if a change detected
+		if dein#check_install()
+			if ! has('nvim')
+				set nomore
+			endif
+			call dein#install()
+		endif
+	endif
+
+	filetype plugin indent on
+
+	" Trigger source events, only when vim is starting
+	if has('vim_starting')
+	    syntax enable
+        else
+		call dein#call_hook('source')
+		call dein#call_hook('post_source')
+	endif
+endfunction
+```
+
+`nvim`启动时将开始判断路径
+
+```css
+let s:dein_dir = l:cache_path . '/repos/github.com/Shougo/dein.vim'
+```
+
+判断这个路径是否存在
+
+在我的电脑上是：`/home/pix/.cache/vim/dein/repos/github.com/Shougo/dein.vim`
+
+就是`dein`的路径
+
+接下来：
+
+```css
+if ! isdirectory(s:dein_dir)
+	execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
+	if v:shell_error
+		call s:error('dein installation has failed! is git installed?')
+		finish
+	endif
+endif
+```
+
+如果路径不存在`clone dein仓库代码`到`s:dein_dir`目录
+
+将`dein`安装目录加到`runtimepath`
+
+```css
+execute 'set runtimepath+='.substitute(
+				\ fnamemodify(s:dein_dir, ':p') , '/$', '', '')
+```
 
 
 
