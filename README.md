@@ -421,7 +421,27 @@ execute 'set runtimepath+='.substitute(
 				\ fnamemodify(s:dein_dir, ':p') , '/$', '', '')
 ```
 
+- 然后加载插件配置文件
 
+- 执行dein加载插件流程
+
+- 安装插件
+
+- 其他操作：
+
+  ```css
+  " Trigger source events, only when vim is starting
+  	if has('vim_starting')
+  	    syntax enable
+          else
+  		call dein#call_hook('source')
+  		call dein#call_hook('post_source')
+  	endif
+  ```
+
+  参考：使用`YAML`管理插件：http://genkisugimoto.com/blog/manage-vim-plugins-via-yaml/ 
+
+  
 
 
 
