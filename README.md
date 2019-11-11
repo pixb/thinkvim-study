@@ -441,7 +441,27 @@ execute 'set runtimepath+='.substitute(
 
   参考：使用`YAML`管理插件：http://genkisugimoto.com/blog/manage-vim-plugins-via-yaml/ 
 
-  
+- 插件的配置文件：`core/dein/plugins.yaml`
+
+- 插件的快捷键配置文件：`layers/+thinkvim/config.vim`
+
+# 三、插件学习
+
+插件的大概加载流程和配置文件目录已经知道了，接下来学习配置每个插件和学习每个插件的作用。
+
+## 1、插件`denite.nvim`
+
+`github:https://github.com/Shougo/denite.nvim `
+
+看了下，这个插件是扩展用的，看作者的配置是用来处理`GoLang`的，暂时略过，先看别的
+
+参考：<https://www.dazhuanlan.com/2019/10/17/5da842e59dc57/> 
+
+
+
+
+
+
 
 
 
