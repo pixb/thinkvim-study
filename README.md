@@ -1031,13 +1031,254 @@ let g:defx_git#indicators = {
 
 ```
 
+## 8、defx-icons
 
+Github:https://github.com/kristijanhusak/defx-icons
 
+plugins.yaml
 
+```yaml
+- repo: kristijanhusak/defx-icons
+  on_source: defx.nvim
+```
 
+## 9、magit.vim
 
+更好的查看提交记录
 
+github:https://github.com/taigacute/magit.vim
 
+plugins.yaml
+
+```yaml
+- { repo: taigacute/magit.vim, on_cmd: Magit }
+```
+
+## 10、gina.vim
+
+另一个git工具
+
+github:https://github.com/lambdalisue/gina.vim
+
+plugins.yaml
+
+```yaml
+- { repo: lambdalisue/gina.vim, on_cmd: Gina }
+```
+
+## 11、vim-easymotion
+
+快速移动工具
+
+github:https://github.com/easymotion/vim-easymotion
+
+plugins.yaml
+
+```yaml
+- repo: easymotion/vim-easymotion
+  on_map: { n: <Plug> }
+  hook_source: |
+        let g:EasyMotion_do_mapping = 0
+        let g:EasyMotion_prompt = 'Jump to → '
+        let g:EasyMotion_keys = 'fjdkswbeoavn'
+        let g:EasyMotion_smartcase = 1
+        let g:EasyMotion_use_smartsign_us = 1
+```
+
+## 12、vim-repeat
+
+重复操作插件，使用<kbd>.</kbd>即可重复操作
+
+ github:https://github.com/tpope/vim-repeat
+
+plugins.yaml
+
+```yaml
+- {repo: tpope/vim-repeat , on_map: .* }
+```
+
+## 13、vim-mundo
+
+访问vim的undo树的插件
+
+github:https://github.com/simnalamburt/vim-mundo
+
+plugins.yaml
+
+```yaml
+- {repo: simnalamburt/vim-mundo , on_map: { n: <Plug> } }
+```
+
+按说这个插件，命令模式`:GundoToggle`能够唤起，但是不起作用。稍后调试一下
+
+## 14、vim-quickrun
+
+快速运行插件
+
+github:https://github.com/thinca/vim-quickrun
+
+plugins.yaml
+
+```yaml
+- repo: thinca/vim-quickrun
+  on_cmd: QuickRun
+  hook_add: |
+        let g:quickrun_config = {
+            \   "_" : {
+            \       "outputter" : "message",
+            \   },
+            \}
+        let g:quickrun_no_default_key_mappings = 1
+
+```
+
+## 15、dash.vim
+
+这个插件是用在Mac上的，因为只有mac才有`Dash.app`,在其他操作系统上，将不起作用
+
+github:https://github.com/rizzatti/dash.vim
+
+plugins.yaml
+
+```yaml
+- repo: rizzatti/dash.vim
+  on_map: { n: <Plug> }
+  hook_add: |
+      let g:dash_map = {
+        \ 'javascript': ['javascript', 'NodeJS'],
+        \ 'javascript.jsx': ['react'],
+        \ 'html': ['html', 'svg'],
+        \ 'go' : 'Go',
+        \}
+
+```
+
+## 16、comfortable-motion.vim
+
+光标位置不变的上下滚动
+
+github:https://github.com/yuttie/comfortable-motion.vim
+
+plugins.yaml
+
+```yaml
+- repo: yuttie/comfortable-motion.vim
+  on_func: comfortable_motion#flick
+  hook_add: |
+        let g:comfortable_motion_no_default_key_mappings = 1
+        let g:comfortable_motion_impulse_multiplier = 1
+
+```
+
+## 17、 vim-easy-align
+
+快速格式化对其，例如编程语言中的赋值多行对其
+
+github:https://github.com/junegunn/vim-easy-align
+
+plugins.yaml
+
+```yaml
+- repo: junegunn/vim-easy-align
+  on_ft: [vim,json,go,html,js,jsx,py,css,less,tmpl,toml,xml,sql,Dockerfile]
+
+```
+
+## 18、vim-startify
+
+这个用来选择编辑过的文件菜单的插件
+
+github:https://github.com/mhinz/vim-startify
+
+plugins.yaml
+
+```yaml
+- repo: mhinz/vim-startify
+  on_cmd: Startify
+  depends: vim-devicons
+  hook_source: source  $VIM_PATH/layers/+ui/startify/config.vim
+  hook_post_source: |
+      function! StartifyEntryFormat()
+        return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
+      endfunction
+```
+
+$VIM_PATH/layers/+ui/startify/config.vim
+
+```css
+
+" For startify
+let g:startify_padding_left = 30
+let s:header = [
+      \ '',
+      \ '   __         _    _        _    _      _         _    ',
+      \ '  / /    ___ | |_ ( ) ___  | |_ | |__  (_) _ __  | | __',
+      \ ' / /    / _ \| __||/ / __| | __|| |_ \ | || |_ \ | |/ /',
+      \ '/ /___ |  __/| |_    \__ \ | |_ | | | || || | | ||   < ',
+      \ '\____/  \___| \__|   |___/  \__||_| |_||_||_| |_||_|\_\',
+      \ '                                                       ',
+      \ '             [ ThinkVim   Author:taigacute ]           ',
+      \ '',
+      \ ]
+
+let s:footer = [
+      \ '+-------------------------------------------+',
+      \ '|            ThinkVim ^_^                   |',
+      \ '|    Talk is cheap Show me the code         |',
+      \ '|                                           |',
+      \ '|            GitHub:taigacute               |',
+      \ '+-------------------------------------------+',
+      \ ]
+
+function! s:center(lines) abort
+  let longest_line   = max(map(copy(a:lines), 'strwidth(v:val)'))
+  let centered_lines = map(copy(a:lines),
+        \ 'repeat(" ", (&columns / 2) - (longest_line / 2)) . v:val')
+  return centered_lines
+endfunction
+
+let g:startify_custom_header = s:center(s:header)
+let g:startify_custom_footer = s:center(s:footer)
+
+```
+
+## 19、vim-choosewin
+
+选择窗口插件，类似于tmux的`<C-b>q`
+
+github:https://github.com/t9md/vim-choosewin
+
+plugins.yaml
+
+```css
+- repo: t9md/vim-choosewin
+  on_map: { n: <Plug> }
+  hook_source: source  $VIM_PATH/layers/+tools/choosewin/config.vim  
+```
+
+$VIM_PATH/layers/+tools/choosewin/config.vim
+
+```css
+
+" Plugin: vim-choosewin
+" ---------------------------------------------------------
+let g:choosewin_label = 'SDFJKLZXCV'
+let g:choosewin_overlay_enable = 1
+let g:choosewin_statusline_replace = 1
+let g:choosewin_overlay_clear_multibyte = 0
+let g:choosewin_blink_on_land = 0
+
+let g:choosewin_color_label = {
+	\ 'cterm': [ 236, 2 ], 'gui': [ '#555555', '#000000' ] }
+let g:choosewin_color_label_current = {
+	\ 'cterm': [ 234, 220 ], 'gui': [ '#333333', '#000000' ] }
+let g:choosewin_color_other = {
+	\ 'cterm': [ 235, 235 ], 'gui': [ '#333333' ] }
+let g:choosewin_color_overlay = {
+	\ 'cterm': [ 2, 10 ], 'gui': [ '#88A2A4' ] }
+let g:choosewin_color_overlay_current = {
+	\ 'cterm': [ 72, 64 ], 'gui': [ '#7BB292' ] }
+```
 
 
 
@@ -1108,7 +1349,49 @@ let g:defx_git#indicators = {
 | <kbd>g</kbd><kbd>f</kbd>       | `nnoremap <silent><buffer><expr> gf  defx#do_action('call', '<SID>find_files')` | 列出所有文件               |
 | <kbd>w</kbd>                   | `nnoremap <silent><buffer><expr> w   defx#async_action('call', '<SID>toggle_width')` | 文件浏览器defx变宽显示     |
 
+## 4、easymotion
 
+| 快捷键                                            | 功能                   |
+| ------------------------------------------------- | ---------------------- |
+| <kbd>LEADER</kbd><kbd>LEADER</kbd> + <kbd>b</kbd> | 上一个单词的快速移动   |
+| <kbd>LEADER</kbd><kbd>LEADER</kbd> + <kbd>w</kbd> | 下一个单词的快速移动   |
+| <kbd>LEADER</kbd><kbd>LEADER</kbd> + <kbd>f</kbd> | 查找一个字母的快速移动 |
+
+## 5、quickrun
+
+<kbd>LOCALLEADER</kbd> + <kbd>r</kbd>
+
+或:`:QuickRun`
+
+## 6、comfortable-motion.vim
+
+| 快捷键                         | 功能                     |
+| ------------------------------ | ------------------------ |
+| <kbd>Ctrl</kbd> + <kbd>d</kbd> | 光标所在行不变，向下滚动 |
+| <kbd>Ctrl</kbd> + <kbd>u</kbd> | 光标位置不变，向上滚动   |
+|                                |                          |
+
+## 7、vim-easy-align
+
+引导键:<kbd>g</kbd><kbd>a</kbd>
+
+常用快捷键：
+
+- `vipga=`
+  - `v`isual-select `i`nner `p`aragraph
+  - Start EasyAlign command (`ga`)
+  - Align around `=`
+- `gaip=`
+  - Start EasyAlign command (`ga`) for `i`nner `p`aragraph
+  - Align around `=`
+
+## 8、vim-startify
+
+打开：<kbd>LEADER</kbd> + <kbd>s</kbd>
+
+## 9、vim-choosewin
+
+打开：<kbd>LEADER</kbd> + <kbd>-</kbd>
 
 
 
