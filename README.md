@@ -990,6 +990,47 @@ endfunction
 
 Github:https://github.com/neoclide/vim-easygit
 
+用来vim支持git的插件。
+
+首先是core/dein/plugins.yaml中的配置
+
+```yaml
+- repo: chemzqm/vim-easygit
+  on_cmd: [Gcd, Glcd, Gcommit, Gblame, Gstatus, Gdiff, Gbrowse, Gstatus, Gpush]
+  hook_source: let g:easygit_enable_command = 1
+```
+
+## 7、defx-git
+
+Github:https://github.com/kristijanhusak/defx-git
+
+这个插件是用来给`defx`来提供git状态支持的
+
+首先是core/dein/plugins.yaml中的配置
+
+```yaml
+- repo: kristijanhusak/defx-git
+  on_source: defx.nvim
+  hook_source: source  $VIM_PATH/layers/+ui/defx/+defx-git.vim
+```
+
+配置文件：`$VIM_PATH/layers/+ui/defx/+defx-git.vim`
+
+```yaml
+
+let g:defx_git#indicators = {
+	\ 'Modified'  : '•',
+	\ 'Staged'    : '✚',
+	\ 'Untracked' : 'ᵁ',
+	\ 'Renamed'   : '≫',
+	\ 'Unmerged'  : '≠',
+	\ 'Ignored'   : 'ⁱ',
+	\ 'Deleted'   : '✖',
+	\ 'Unknown'   : '⁇'
+	\ }
+
+```
+
 
 
 
