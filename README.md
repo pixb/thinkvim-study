@@ -1541,6 +1541,744 @@ plugins.yaml
   depends : coc.nvim
 ```
 
+## 23、coc.nvim
+
+一个提供插件的插件
+
+github:https://github.com/neoclide/coc.nvim
+
+plugins.yaml
+
+```yaml
+- repo: neoclide/coc.nvim
+  merge: 0
+  rev: release
+  hook_add: source  $VIM_PATH/layers/+completion/coc/config.vim
+
+```
+
+- ` $VIM_PATH/layers/+completion/coc/config.vim`
+
+  ```css
+  "CoC configlet 
+  let g:coc_snippet_next = '<TAB>'
+  let g:coc_snippet_prev = '<S-TAB>'
+  let g:coc_status_error_sign = '•'
+  let g:coc_status_warning_sign = '•'
+  let g:coc_global_extensions =['coc-html','coc-css','coc-snippets','coc-prettier','coc-eslint','coc-emmet','coc-tsserver','coc-pairs','coc-json','coc-python','coc-imselect','coc-highlight','coc-git','coc-emoji','coc-lists','coc-post','coc-stylelint','coc-yaml','coc-template','coc-tabnine','coc-marketplace','coc-gitignore','coc-yank','coc-explorer','coc-go']
+  
+  augroup MyAutoCmd
+    autocmd!
+    " Setup formatexpr specified filetype(s).
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  augroup end
+  
+  " Highlight symbol under cursor on CursorHold
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+  
+  "Use tab for trigger completion with characters ahead and navigate
+  inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ coc#refresh()
+  
+  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+  "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+  
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+  endfunction
+  
+  
+  ```
+
+## 24、vim-buffet
+
+快速切换`buffer`的插件
+
+github:https://github.com/bagrat/vim-buffet
+
+plugins.yaml
+
+```yaml
+- repo: bagrat/vim-buffet
+  hook_add: source $VIM_PATH/layers/+ui/buffet/config.vim
+
+```
+
+- `$VIM_PATH/layers/+ui/buffet/config.vim`
+
+  ```css
+  
+  let g:buffet_tab_icon = "\uf00a"
+  function! g:BuffetSetCustomColors()
+      hi! BuffetCurrentBuffer cterm=NONE ctermbg=106 ctermfg=8 guibg=#b8bb26 guifg=#000000
+      hi! BuffetTrunc cterm=bold ctermbg=66 ctermfg=8 guibg=#458588 guifg=#000000
+      hi! BuffetBuffer cterm=NONE ctermbg=239 ctermfg=8 guibg=#504945 guifg=#000000
+      hi! BuffetTab cterm=NONE ctermbg=66 ctermfg=8 guibg=#458588 guifg=#000000
+      hi! BuffetActiveBuffer cterm=NONE ctermbg=10 ctermfg=239 guibg=#999999 guifg=#504945
+  endfunction
+  
+  ```
+
+## 25、spaceline.vim
+
+状态条插件
+
+github:https://github.com/hardcoreplayers/spaceline.vim
+
+plugins.yaml
+
+```yaml
+- repo: taigacute/spaceline.vim
+```
+
+## 26、dein.vim
+
+插件管理
+
+github:https://github.com/Shougo/dein.vim
+
+plugins.yaml
+
+```yaml
+- repo: Shougo/dein.vim
+```
+
+## 27、dockerfile.vim
+
+高亮dockerfiles语法插件
+
+github:https://github.com/honza/dockerfile.vim
+
+plugins.yaml
+
+```yaml
+- { repo: honza/dockerfile.vim, on_ft: Dockerfile }
+```
+
+## 28、vim-emoji
+
+使vim支持emoji的插件
+
+github:https://github.com/junegunn/vim-emoji
+
+plugins.yaml
+
+```yaml
+- { repo: junegunn/vim-emoji, on_ft: [markdown,vim] }
+
+```
+
+## 29、typescript-vim
+
+TypeScrpit语法高亮
+
+github:https://github.com/leafgarland/typescript-vim
+
+plugins.yaml
+
+```yaml
+- { repo: leafgarland/typescript-vim, on_ft: [typescript.tsx,typescript] }
+
+```
+
+## 29、peitalin/vim-jsx-typescript
+
+Syntax highlighting for JSX in Typescript.
+
+github:https://github.com/peitalin/vim-jsx-typescript
+
+plugins.yaml
+
+```yaml
+- { repo: peitalin/vim-jsx-typescript, on_ft: [typescript.tsx]}
+
+```
+
+## 30、vim-python-pep8-indent
+
+python的PEP8缩进
+
+github:https://github.com/Vimjas/vim-python-pep8-indent
+
+plugins.yaml
+
+```yaml
+- { repo: Vimjas/vim-python-pep8-indent, on_ft: python }
+
+```
+
+## 31、SimpylFold
+
+python的正确折叠插件
+
+github:https://github.com/tmhedberg/SimpylFold
+
+plugins.yaml
+
+```yaml
+- { repo: tmhedberg/SimpylFold, on_ft: python }
+
+```
+
+## 32、**python_match.vim**
+
+python`%`匹配跳转
+
+github:https://github.com/vim-scripts/python_match.vim
+
+plugins.yaml
+
+```yaml
+- { repo: vim-scripts/python_match.vim, on_ft: python }
+
+```
+
+## 33、vim-python/python-syntax
+
+增强高亮python语法
+
+github:https://github.com/vim-python/python-syntax
+
+plugins.yaml
+
+```yaml
+- repo: vim-python/python-syntax
+  on_ft: python
+  hook_add: let g:python_highlight_all = 1
+
+```
+
+## 34、vim-jsx-improve
+
+Makes your javascript files support React jsx correctly.
+
+github:https://github.com/neoclide/vim-jsx-improve
+
+plugins.yaml
+
+```yaml
+- { repo: neoclide/vim-jsx-improve, on_ft: [javascript,jsx,javascript.jsx]}
+
+```
+
+## 35、vim-toml
+
+TOML语法高亮
+
+github:https://github.com/cespare/vim-toml
+
+plugins.yaml
+
+```yaml
+- { repo: cespare/vim-toml, on_ft: toml }
+
+```
+
+## 36、**xml.vim**
+
+xml编辑插件，自动补齐
+
+github:https://github.com/vim-scripts/xml.vim
+
+plugins.yaml
+
+```yaml
+- { repo: vim-scripts/xml.vim, on_ft: xml}
+
+```
+
+## 37、**ansible-vim**
+
+配置自动化脚本高亮插件
+
+This is a vim syntax plugin for Ansible 2.x, it supports YAML playbooks, Jinja2 templates, and Ansible's `hosts` files.
+
+github:https://github.com/pearofducks/ansible-vim
+
+plugins.yaml
+
+```yaml
+- { repo: pearofducks/ansible-vim, on_ft: [ yaml.ansible, ansible_hosts ]}
+
+```
+
+## 38、**vim-json**
+
+json高亮插件
+
+github:https://github.com/elzr/vim-json
+
+plugins.yaml
+
+```yaml
+- repo: elzr/vim-json
+  on_ft: json
+  hook_add: let g:vim_json_syntax_conceal = 0
+
+```
+
+## 39、vim-go
+
+Go语言对Vim支持
+
+github:https://github.com/fatih/vim-go
+
+plugins.yaml
+
+```yaml
+- repo: fatih/vim-go
+  on_ft: go
+  hook_source: source  $VIM_PATH/layers/+lang/go/config.vim
+
+```
+
+- `$VIM_PATH/layers/+lang/go/config.vim`
+
+  ```css
+  "vim-go
+  let g:go_fmt_command = "goimports"
+  let g:go_highlight_types = 1
+  let g:go_highlight_fields = 1
+  let g:go_highlight_functions = 1
+  let g:go_highlight_function_calls = 1
+  let g:go_highlight_methods = 1
+  let g:go_highlight_structs = 1
+  let g:go_highlight_operators = 1
+  let g:go_highlight_extra_types = 1
+  let g:go_highlight_build_constraints = 1
+  let g:go_highlight_generate_tags = 1
+  "disable use K to run godoc
+  let g:go_doc_keywordprg_enabled = 0
+  let g:go_def_mapping_enabled = 0
+  ```
+
+## 40、vim-markdown
+
+Vim对Markdown的支持
+
+github:https://github.com/tpope/vim-markdown
+
+plugins.yaml
+
+```yaml
+- repo: tpope/vim-markdown
+  on_ft: markdown
+  hook_add: |
+        let g:markdown_fenced_languages = [
+          \ 'html',
+          \ 'bash=sh',
+          \ 'css',
+          \ 'javascript',
+          \ 'js=javascript',
+          \ 'go',
+          \]
+
+```
+
+## 41、**caw.vim**
+
+Vim注释插件
+
+github:https://github.com/tyru/caw.vim
+
+plugins.yaml
+
+```yaml
+- repo: tyru/caw.vim
+  on_map: { nx: <Plug> }
+
+```
+
+## 42、neoformat
+
+格式化插件
+
+github:https://github.com/sbdchd/neoformat
+
+plugins.yaml
+
+```yaml
+- repo: sbdchd/neoformat
+  on_cmd: [Neoformat,Neoformat!]
+  hook_source: source  $VIM_PATH/layers/+tools/neoformat/config.vim
+
+```
+
+- `$VIM_PATH/layers/+tools/neoformat/config.vim`
+
+  ```css
+  
+  let g:neoformat_try_formatprg = 1
+  let g:jsx_ext_required = 0
+  let g:neoformat_enabled_javascript=['prettier']
+  let g:neoformat_enabled_html=['js-beautify']
+  
+  ```
+
+## 43、**indentLine**
+
+缩进线
+
+github:https://github.com/Yggdroot/indentLine
+
+plugins.yaml
+
+```yaml
+- repo: Yggdroot/indentLine
+  on_ft: [python,html,css,vim,javascript,jsx,javascript.jsx,vue]
+  hook_source: source $VIM_PATH/layers/+ui/indentline/config.vim
+
+```
+
+- `$VIM_PATH/layers/+ui/indentline/config.vim`
+
+  ```css
+  
+  let g:indentline_enabled = 1
+  let g:indentline_char='┆'
+  let g:indentLine_fileTypeExclude = ['defx', 'denite','startify','tagbar','vista_kind','vista']
+  let g:indentLine_concealcursor = 'niv'
+  let g:indentLine_color_term = 96
+  let g:indentLine_color_gui= '#725972'
+  let g:indentLine_showFirstIndentLevel =1
+  
+  ```
+
+## 44、vista.vim
+
+new tagbar
+
+参考：https://www.zhihu.com/question/31934850
+
+github:https://github.com/liuchengxu/vista.vim
+
+plugins.yaml
+
+```yaml
+- repo: liuchengxu/vista.vim
+  on_cmd: [Vista,Vista!,Vista!!]
+  hook_source: source  $VIM_PATH/layers/+tools/vista/config.vim
+
+```
+
+- `$VIM_PATH/layers/+tools/vista/config.vim`
+
+  ```yaml
+  let g:vista#renderer#enable_icon = 1
+  let g:vista_default_executive = 'ctags'
+  let g:vista_fzf_preview = ['right:50%']
+  
+  let g:vista_executive_for = {
+    \ 'go': 'ctags',
+    \ 'javascript': 'coc',
+    \ 'javascript.jsx': 'coc',
+    \ 'python': 'ctags',
+    \ }
+  
+  ```
+
+## 45、Emmet-vim
+
+快速生成`HTML`的插件
+
+参考：https://www.jianshu.com/p/ad8a6a786054
+
+github:https://github.com/mattn/emmet-vim
+
+plugins.yaml
+
+```css
+- repo: mattn/emmet-vim
+  on_ft: [html,css,jsx,javascript,javascript.jsx]
+  on_event: InsertEnter
+  hook_add: |
+        let g:use_emmet_complete_tag = 0
+        let g:user_emmet_install_global = 0
+        let g:user_emmet_install_command = 0
+        let g:user_emmet_mode = 'i'
+        let g:user_emmet_leader_key='<C-g>'
+        let g:user_emmet_settings = {
+            \  'javascript.jsx' : {
+            \      'extends' : 'jsx',
+            \  },
+        \}
+
+```
+
+## 46、**rainbow**
+
+彩虹括号增强版，提高复杂代码的阅读性
+
+github:https://github.com/luochen1990/rainbow
+
+plugins.yaml
+
+```yaml
+- repo: luochen1990/rainbow
+  on_ft: [python,javascript,jsx,javascript.jsx,html,css,go,vim,toml]
+  hook_source: let g:rainbow_active = 1
+
+```
+
+## 47、echodoc.vim
+
+显示函数文档到command line中
+
+github:https://github.com/Shougo/echodoc.vim
+
+plugins.yaml
+
+```css
+- repo: Shougo/echodoc.vim
+  on_event: CompleteDone
+  hook_source: |
+        call echodoc#enable()
+        let g:echodoc#type = "virtual"
+
+```
+
+## 48、markdown-preview.nvim
+
+预览Markdown的插件
+
+github:https://github.com/iamcco/markdown-preview.nvim
+
+plugins.yam
+
+```css
+- repo: iamcco/markdown-preview.nvim
+  on_ft: [markdown,pandoc.markdown,rmd]
+  hook_post_source: 'call mkdp#util#install()'
+  hook_source: |
+      let g:mkdp_auto_start = 1
+
+```
+
+## 49、goyo.vim
+
+清爽模式，不被其他元素打扰的写作插件
+
+参考：https://github.com/junegunn/goyo.vim
+
+plugins.yaml
+
+```css
+- repo: junegunn/goyo.vim
+  on_cmd: Goyo
+  hook_source: source  $VIM_PATH/layers/+tools/goyo/config.vim
+
+```
+
+- `$VIM_PATH/layers/+tools/goyo/config.vim`
+
+  ```css
+  " Goyo
+  
+  " s:goyo_enter() "{{{
+  " Disable visual candy in Goyo mode
+  function! s:goyo_enter()
+  	if has('gui_running')
+  		" Gui fullscreen
+  		set fullscreen
+  		set background=light
+  		set linespace=7
+  	elseif exists('$TMUX')
+  		" Hide tmux status
+  		silent !tmux set status off
+  	endif
+  
+  	" Activate Limelight
+  	Limelight
+  endfunction
+  
+  " }}}
+  " s:goyo_leave() "{{{
+  " Enable visuals when leaving Goyo mode
+  function! s:goyo_leave()
+  	if has('gui_running')
+  		" Gui exit fullscreen
+  		set nofullscreen
+  		set background=dark
+  		set linespace=0
+  	elseif exists('$TMUX')
+  		" Show tmux status
+  		silent !tmux set status on
+  	endif
+  
+  	" De-activate Limelight
+  	Limelight!
+  endfunction
+  " }}}
+  
+  " Goyo Commands {{{
+  autocmd! User GoyoEnter
+  autocmd! User GoyoLeave
+  autocmd  User GoyoEnter nested call <SID>goyo_enter()
+  autocmd  User GoyoLeave nested call <SID>goyo_leave()
+  " }}}
+  
+  " vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :
+  
+  ```
+
+## 50、limelight.vim
+
+在使用goyo.vim的清爽模式时，块高亮插件
+
+github:https://github.com/junegunn/Limelight.vim
+
+plugins.yaml
+
+```css
+- repo: junegunn/Limelight.vim
+  on_cmd: Limelight
+
+```
+
+## 51、splitjoin.vim
+
+多行和单行之间快速切换的插件
+
+github:https://github.com/AndrewRadev/splitjoin.vim
+
+plugins.yaml
+
+```yaml
+- { repo: AndrewRadev/splitjoin.vim, on_map: { n: <Plug>Splitjoin }}
+
+```
+
+## 52、vim-expand-region
+
+扩展选择插件，让你快速选择
+
+github:https://github.com/terryma/vim-expand-region
+
+plugins.yaml
+
+```yaml
+- { repo: terryma/vim-expand-region, on_map: { x: <Plug> }}
+
+```
+
+## 53、vim-textobj-user
+
+用户可以自定文本块的插件
+
+github:https://github.com/kana/vim-textobj-user
+
+plugins.yaml
+
+```yaml
+- { repo: kana/vim-textobj-user, on_func: textobj#user# }
+
+```
+
+## 54、vim-operator-user
+
+用户定义自己的操作符的插件
+
+github:https://github.com/kana/vim-operator-user
+
+plugins.yaml
+
+```yaml
+- { repo: kana/vim-operator-user, lazy: 1 }
+
+```
+
+## 55、vim-niceblock
+
+更好的块选择插件
+
+github:https://github.com/kana/vim-niceblock
+
+plugins.yaml
+
+```yaml
+- { repo: kana/vim-niceblock, on_map: { x: <Plug> }}
+
+```
+
+## 56、**vim-smartchr**
+
+一键插入多个候选的插件
+
+github:https://github.com/kana/vim-smartchr
+
+plugins.yaml
+
+```yaml
+- repo: kana/vim-smartchr
+  on_event: InsertCharPre
+
+```
+
+## 57、vim-operator-replace
+
+操作符替换插件
+
+github:https://github.com/kana/vim-operator-replace
+
+plugins.yaml
+
+```yaml
+- repo: kana/vim-operator-replace
+  depends: vim-operator-user
+  on_map: { vnx: <Plug> }
+
+```
+
+## 58、vim-sandwich
+
+改变括号的插件
+
+github:https://github.com/machakann/vim-sandwich
+
+plugins.yaml
+
+```yaml
+- repo: machakann/vim-sandwich
+  on_map: { vnx: [<Plug>(operator-sandwich-,<Plug>(textobj-sandwich-]}
+
+```
+
+## 59、vim-textobj-multiblock
+
+过个括号一起使用的文本快
+
+github:https://github.com/osyo-manga/vim-textobj-multiblock/
+
+plugins.yaml
+
+```yaml
+- repo: osyo-manga/vim-textobj-multiblock
+  depends: vim-textobj-user
+  on_map: { ox: <Plug> }
+  hook_add:  let g:textobj_multiblock_no_default_key_mappings = 1
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # 四、快捷键
